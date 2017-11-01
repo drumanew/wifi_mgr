@@ -1,0 +1,5 @@
+/deps/
+/.erlang.mk/
+/ebin/
+/wifi_mgr.d
+/_rel/

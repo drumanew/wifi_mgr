@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <title> Raspberry WiFi Manager </title>
+</head>
+
+<body style="display:table; margin:0 auto;">
+  <div style="padding:20px; max-width:400px; font-family: courier">
+    <form method="post" action="/reconnect">
+      <fieldset>
+        <legend>Current Configuration</legend>
+        SSID: {{ state.ssid }}
+        <br>
+        Connection: <font color="{{ state.color }}">{{ state.string }}</font>
+        <br>
+        <input type="submit" value="Try reconnect" style="visibility: {{ state.reconnect_visibility }}">
+      </fieldset>
+    </form>
+
+    <form method="post" action="/set_config">
+      <fieldset>
+        <legend>Select Wireless Network</legend>
+        SSID:
+        <br>
+        <select name="ssid" style="width: 100%">
+          {% for ssid in ssid_list %}
+          <option value="{{ ssid.name }}">{{ ssid.name }}</option>
+          {% endfor %}
+        </select>
+        <br>
+        Password:
+        <br>
+        <input type="password" name="password" style="width: 100%">
+        <input type="submit" value="Save">
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>

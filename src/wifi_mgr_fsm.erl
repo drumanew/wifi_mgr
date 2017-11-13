@@ -327,12 +327,12 @@ configure_hardware (Config) ->
                                          [Reason])),
       throw(Err1)
   end,
-  cmd("ifconfig wlan0 up"),
+  cmd("sudo ifconfig wlan0 up"),
   restart_wpa_supplicant(),
-  cmd("wpa_cli -i wlan0 reconfigure").
+  cmd("sudo wpa_cli -i wlan0 reconfigure").
 
 check_connection (connected, #state{ config = #{ ssid := SSID } }) ->
-  cmd("iwconfig wlan0 | grep -o SSID:.* | grep -o " ++ SSID ++ " > /tmp/.wifi_mgr"),
+  cmd("sudo iwconfig wlan0 | grep -o SSID:.* | grep -o " ++ SSID ++ " > /tmp/.wifi_mgr"),
   Bin = iolist_to_binary(SSID),
   Size = size(Bin),
   case file:read_file("/tmp/.wifi_mgr") of
@@ -345,38 +345,38 @@ check_connection (_, _) ->
   ok.
 
 start_access_point () ->
-  cmd("rm /etc/wpa_supplicant/wpa_supplicant.conf"),
-  cmd("killall -9 wpa_supplicant"),
-  cmd("systemctl stop dnsmasq"),
-  cmd("systemctl stop hostapd"),
+  cmd("sudo rm /etc/wpa_supplicant/wpa_supplicant.conf"),
+  cmd("sudo killall -9 wpa_supplicant"),
+  cmd("sudo systemctl stop dnsmasq"),
+  cmd("sudo systemctl stop hostapd"),
   backup("/etc/dhcpcd.conf"),
   cmd("echo 'denyinterface wlan0' >> /etc/dhcpcd.conf"),
   write_network_interfaces_wlan0(),
-  cmd("ip addr flush dev wlan0"),
-  cmd("systemctl restart dhcpcd"),
-  cmd("ifdown wlan0"),
-  cmd("ifup wlan0"),
+  cmd("sudo ip addr flush dev wlan0"),
+  cmd("sudo systemctl restart dhcpcd"),
+  cmd("sudo ifdown wlan0"),
+  cmd("sudo ifup wlan0"),
   backup("/etc/dnsmasq.conf"),
   write_dnsmasq_conf(),
   backup("/etc/hostapd/hostapd.conf"),
   write_hostapd_conf(),
   backup("/etc/default/hostapd"),
   cmd("echo 'DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"' >> /etc/default/hostapd"),
-  cmd("systemctl start hostapd"),
-  cmd("systemctl start dnsmasq").
+  cmd("sudo systemctl start hostapd"),
+  cmd("sudo systemctl start dnsmasq").
 
 stop_access_point () ->
-  cmd("systemctl stop dnsmasq"),
-  cmd("systemctl stop hostapd"),
+  cmd("sudo systemctl stop dnsmasq"),
+  cmd("sudo systemctl stop hostapd"),
   restore("/etc/dhcpcd.conf"),
   remove_network_interfaces_wlan0(),
   restore("/etc/dnsmasq.conf"),
   restore("/etc/hostapd/hostapd.conf"),
   restore("/etc/default/hostapd"),
-  cmd("systemctl restart dhcpcd"),
-  cmd("ip addr flush dev wlan0"),
-  cmd("ifdown wlan0"),
-  cmd("ifup wlan0").
+  cmd("sudo systemctl restart dhcpcd"),
+  cmd("sudo ip addr flush dev wlan0"),
+  cmd("sudo ifdown wlan0"),
+  cmd("sudo ifup wlan0").
 
 backup (File) ->
   BackupFile = File ++ ".backup",
@@ -438,4 +438,4 @@ cmd (Command) ->
   ?LOG("$ ~s~n~s", [Command, os:cmd(Command)]).
 
 restart_wpa_supplicant () ->
-  cmd("wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant.conf -iwlan0").
+  cmd("sudo wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant.conf -iwlan0").

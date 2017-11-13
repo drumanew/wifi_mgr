@@ -52,7 +52,7 @@ terminate(_Reason, _Req, _State) ->
 %% private
 
 scan_ssids () ->
-  RawData = os:cmd("iwlist wlan0 scan"),
+  RawData = os:cmd("sudo iwlist wlan0 scan"),
   parse_scan_ssids(RawData).
 
 parse_scan_ssids (RawData) ->

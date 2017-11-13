@@ -42,7 +42,7 @@ redirect(Path, Req, State) ->
                                 [{<<"Location">>, Path}],
                                 <<>>,
                                 Req),
-  {halt, Req2, State}.
+  {ok, Req2, State}.
 
 terminate(_Reason, _Req, _State) ->
   ok.

@@ -1,2 +1,2 @@
 interface=wlan0
-  dhcp-range={{ min }},{{ max }},{{ network }},{{ leasetime }}
+  dhcp-range={{ min }},{{ max }},{{ mask }},{{ leasetime }}

@@ -423,7 +423,7 @@ write_network_interfaces_wlan0 () ->
 write_dnsmasq_conf () ->
   {ok, Data} = dnsmasq_conf_dtl:render([{min, dhcp_ip_addr_min()},
                                         {max, dhcp_ip_addr_max()},
-                                        {network, wlan0_ip_network()},
+                                        {mask, wlan0_ip_mask()},
                                         {leasetime, dhcp_lease_time()}]),
   file:write_file("/etc/dnsmasq.conf", iolist_to_binary(Data)).
 

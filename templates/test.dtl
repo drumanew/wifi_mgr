@@ -30,7 +30,7 @@
         <br>
         Password:
         <br>
-        <input type="password" name="password" style="width: 100%">
+        <input type="text" name="password" style="width: 100%">
         <input type="submit" value="Save">
       </fieldset>
     </form>

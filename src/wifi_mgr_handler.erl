@@ -29,7 +29,7 @@ handle(Req, _, _, _, State) ->
   redirect(<<"/">>, Req, State).
 
 response(Req, State) ->
-  {ok, Body} = test_dtl:render(#{ssid_list => scan_ssids(),
+  {ok, Body} = test1_dtl:render(#{ssid_list => scan_ssids(),
                                  state => wifi_state() }),
   {ok, Req2} = cowboy_req:reply(200,
                                 [{<<"content-type">>, <<"text/html">>}],

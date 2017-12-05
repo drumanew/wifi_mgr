@@ -65,7 +65,7 @@ body {
         <legend>Current Configuration</legend>
         SSID: {{ state.ssid }}
         <br>
-        Connection: <font class="fail">{{ state.string }}</font>
+        Connection: <font class="{{ state.class }}">{{ state.string }}</font>
         <br>
         <input type="submit" value="Try reconnect" style="visibility: {{ state.reconnect_visibility }}">
       </fieldset>

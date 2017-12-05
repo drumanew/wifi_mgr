@@ -70,18 +70,18 @@ wifi_state () ->
       SSID = maps:get(ssid, Status, "-"),
       case State of
         checking ->
-          #{ ssid => SSID, string => "NO", color => "grey", reconnect_visibility => "hidden" };
+          #{ ssid => SSID, string => "NO", class => "pending", reconnect_visibility => "hidden" };
         connecting ->
-          #{ ssid => SSID, string => "NO", color => "grey", reconnect_visibility => "hidden" };
+          #{ ssid => SSID, string => "NO", class => "pending", reconnect_visibility => "hidden" };
         connected ->
-          #{ ssid => SSID, string => "OK", color => "green", reconnect_visibility => "hidden" };
+          #{ ssid => SSID, string => "OK", class => "success", reconnect_visibility => "hidden" };
         access_point ->
-          #{ ssid => SSID, string => "ERR", color => "red", reconnect_visibility => "visible" }
+          #{ ssid => SSID, string => "ERR", class => "fail", reconnect_visibility => "visible" }
       end;
     _ ->
       #{ ssid => "-",
          string => "ERR",
-         color => "red",
+         class => "fail",
          reconnect_visibility => "hidden" }
   end.
 

@@ -1,4 +1,4 @@
-git <html>
+<html>
 
 <style>
 
@@ -27,6 +27,10 @@ body {
 
 .success {
   color: green;
+}
+
+.pending {
+  color: grey;
 }
 
 /*
@@ -59,11 +63,11 @@ body {
     <form method="post" action="/reconnect">
       <fieldset>
         <legend>Current Configuration</legend>
-        SSID: XXX
+        SSID: {{ state.ssid }}
         <br>
-        Connection: <font class="fail">RED</font>
+        Connection: <font class="fail">{{ state.string }}</font>
         <br>
-        <input type="submit" value="Try reconnect" style="visibility: true">
+        <input type="submit" value="Try reconnect" style="visibility: {{ state.reconnect_visibility }}">
       </fieldset>
     </form>
 
@@ -73,8 +77,9 @@ body {
         SSID:
         <br>
         <select class="col1" name="ssid" >
-          <option value="1">XXX</option>
-          <option value="2">YYY</option>
+          {% for ssid in ssid_list %}
+          <option value="{{ ssid.name }}">{{ ssid.name }}</option>
+          {% endfor %}
         </select>
         <br>
         Password:

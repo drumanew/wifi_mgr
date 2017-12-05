@@ -1,0 +1,88 @@
+git <html>
+
+<style>
+
+body {
+  display:table;
+  margin:0 auto;
+}
+
+.container {
+  width:100%;
+  padding-top:20px;
+  font-family: courier;
+}
+
+.container > form {
+  font-size: 1em;
+}
+
+.col1 {
+  width: 100%;
+}
+
+.fail {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+/*
+  Tablets and displays
+*/
+
+@media screen and (min-width: 500px) {
+
+  .container {
+    max-width:400px;
+  }
+
+  .container > form {
+    width: 100%;
+    font-size: 1.5em;
+  }
+
+}
+
+
+
+</style>
+
+<head>
+  <title> Raspberry WiFi Manager </title>
+</head>
+
+<body>
+  <div class="container">
+    <form method="post" action="/reconnect">
+      <fieldset>
+        <legend>Current Configuration</legend>
+        SSID: XXX
+        <br>
+        Connection: <font class="fail">RED</font>
+        <br>
+        <input type="submit" value="Try reconnect" style="visibility: true">
+      </fieldset>
+    </form>
+
+    <form method="post" action="/set_config">
+      <fieldset>
+        <legend>Select Wireless Network</legend>
+        SSID:
+        <br>
+        <select class="col1" name="ssid" >
+          <option value="1">XXX</option>
+          <option value="2">YYY</option>
+        </select>
+        <br>
+        Password:
+        <br>
+        <input class="col1" type="text" name="password">
+        <input type="submit" value="Save">
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>
